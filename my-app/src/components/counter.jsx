@@ -2,13 +2,24 @@ import React, { Component } from 'react';
 
 class Counter extends Component {
   state = {
-    count: 1,
+    count: 0,
     imageUrl: 'https://picsum.photos/200',
     tags: ['t1', 't2', 't3']
   };
 
   styles = {
     fontSize: '14px'
+  };
+
+  // constructor() {
+  //   super();
+  //   this.increment = this.increment.bind(this);
+  // }
+
+  increment = () => {
+    this.setState({
+      count: this.state.count + 1
+    });
   };
 
   render() {
@@ -21,7 +32,10 @@ class Counter extends Component {
         <span className={this.getBadgeClasses()} style={this.styles}>
           {this.formatCount()}
         </span>
-        <button className="btn btn-secondary btn-sm">Increment</button>
+        <button onClick={this.increment} className="btn btn-secondary btn-sm">
+          Increment
+        </button>
+        {this.state.tags.length === 0 && <p>No records.</p>}
         <ul>
           {this.state.tags.map(tag => (
             <li key={tag}>{tag}</li>
