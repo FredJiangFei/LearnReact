@@ -6,7 +6,7 @@ const Like = props => {
     <i
       className={className}
       style={{ cursor: 'pointer' }}
-      onClick={props.likeToggle}
+      onClick={props.onLike}
     />
   );
 };

@@ -1,24 +1,37 @@
 import React from 'react';
 
 const ListGroup = props => {
+  let {
+    genres,
+    textProperty,
+    valueProperty,
+    onItemSelect,
+    selectedGenre
+  } = props;
+
   return (
     <ul className="list-group">
-      {props.groups.map(g => (
+      {genres.map(genre => (
         <li
           className={
-            props.currentGroup === g.name
+            selectedGenre === genre
               ? 'list-group-item active'
               : 'list-group-item'
           }
           style={{ cursor: 'pointer' }}
-          key={g._id}
-          onClick={() => props.changeListGroup(g)}
+          key={genre[valueProperty] ? genre[valueProperty] : 'all'}
+          onClick={() => onItemSelect(genre)}
         >
-          {g.name}
+          {genre[textProperty]}
         </li>
       ))}
     </ul>
   );
+};
+
+ListGroup.defaultProps = {
+  textProperty: 'name',
+  valueProperty: '_id'
 };
 
 export default ListGroup;
