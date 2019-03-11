@@ -12,9 +12,9 @@ class Movies extends Component {
   };
 
   handleLike = m => {
-    const movies = [...movies];
+    const movies = [...this.state.movies];
     const idx = movies.indexOf(m);
-    movies[idx] = { ...movies[idx] };
+    movies[idx] = { ...this.state.movies[idx] };
     movies[idx].liked = !movies[idx].liked;
     this.setState({ movies });
   };
