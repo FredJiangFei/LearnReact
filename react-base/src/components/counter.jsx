@@ -10,27 +10,51 @@ class Counter extends Component {
   //   this.increment = this.increment.bind(this);
   // }
 
+  componentDidUpdate(preProps, preState) {
+    // console.log(`preProps: `, preProps);
+    // console.log(`preState: `, preState);
+
+    if (preProps.counter.value !== this.props.counter.value) {
+      // Ajax call and get new data from the server
+    }
+  }
+
+  componentWillUnmount() {
+    console.log('Counter - Unmount');
+  }
+
   render() {
+    console.log('Counter - Render');
     return (
-      <div>
-        {this.props.children}
-        <span className={this.getBadgeClasses()} style={this.styles}>
-          {this.formatCount()}
-        </span>
-        <button
-          onClick={() => this.props.onIncrement(this.props.counter)}
-          className="btn btn-secondary btn-sm"
-        >
-          Increment
-        </button>
-        <button
-          onClick={() => this.props.onDelete(this.props.counter.id)}
-          className="btn btn-danger btn-sm m-2"
-        >
-          Delete
-        </button>
+      <div className="row">
+        <div className="col-sm-2">
+          {this.props.children}
+          <span className={this.getBadgeClasses()} style={this.styles}>
+            {this.formatCount()}
+          </span>
+        </div>
+        <div className="col">
+          <button
+            onClick={() => this.props.onIncrement(this.props.counter)}
+            className="btn btn-secondary btn-sm"
+          >
+            +
+          </button>
+          <button
+            onClick={() => this.props.onDecrement(this.props.counter)}
+            className="btn btn-secondary btn-sm m-2"
+            disabled={this.props.counter.value === 0}
+          >
+            -
+          </button>
+          <button
+            onClick={() => this.props.onDelete(this.props.counter.id)}
+            className="btn btn-danger btn-sm"
+          >
+            Delete
+          </button>
+        </div>
       </div>
-      // Ctrl + D
     );
   }
 
