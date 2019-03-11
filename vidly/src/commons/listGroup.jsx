@@ -15,11 +15,10 @@ const ListGroup = props => {
         <li
           className={
             selectedGenre === genre
-              ? 'list-group-item active'
-              : 'list-group-item'
+              ? 'list-group-item hand active'
+              : 'list-group-item hand'
           }
-          style={{ cursor: 'pointer' }}
-          key={genre[valueProperty] ? genre[valueProperty] : 'all'}
+          key={genre[valueProperty]}
           onClick={() => onItemSelect(genre)}
         >
           {genre[textProperty]}
