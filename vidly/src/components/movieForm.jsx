@@ -1,7 +1,7 @@
 import React from 'react';
 import Joi from 'joi-browser';
 import Form from '../commons/form';
-import { getMovie } from '../services/movieService';
+import { getMovie, saveMovie } from '../services/movieService';
 import { getGenres } from '../services/genreService';
 
 class MovieForm extends Form {
@@ -60,10 +60,9 @@ class MovieForm extends Form {
   }
 
   doSubmit = () => {
-    console.log(this.state.data);
-    // saveMovie(this.state.data);
-
-    this.props.history.push('/movies');
+    saveMovie(this.state.data).then(() => {
+      this.props.history.push('/movies');
+    });
   };
 
   render() {

@@ -7,12 +7,14 @@ import { getGenres } from '../services/genreService';
 import MoviesTable from './moviesTable';
 import _ from 'lodash';
 import { Link } from 'react-router-dom';
+import SearchBox from './searchBox';
 
 class Movies extends Component {
   state = {
     movies: [],
     currentPage: 1,
     pageSize: 4,
+    searchQuery: '',
     genres: [],
     sortColumn: { path: 'title', order: 'asc' }
   };
@@ -56,6 +58,10 @@ class Movies extends Component {
     await deleteMovie(movie._id);
   };
 
+  handleSearch = query => {
+    this.setState({ searchQuery: query, selectedGenre: null, currentPage: 1 });
+  };
+
   handleSort = sortColumn => {
     this.setState({
       sortColumn
@@ -68,13 +74,17 @@ class Movies extends Component {
       currentPage,
       sortColumn,
       selectedGenre,
+      searchQuery,
       movies: allMovies
     } = this.state;
 
-    const filtered =
-      selectedGenre && selectedGenre._id
-        ? allMovies.filter(m => m.genre._id === selectedGenre._id)
-        : allMovies;
+    let filtered = allMovies;
+    if (searchQuery)
+      filtered = allMovies.filter(m =>
+        m.title.toLowerCase().startsWith(searchQuery.toLowerCase())
+      );
+    else if (selectedGenre && selectedGenre._id)
+      filtered = allMovies.filter(m => m.genre._id === selectedGenre._id);
 
     const sorted = _.orderBy(filtered, [sortColumn.path], [sortColumn.order]);
 
@@ -84,7 +94,13 @@ class Movies extends Component {
   };
 
   render() {
-    let { currentPage, pageSize, movies: allMovies, sortColumn } = this.state;
+    let {
+      currentPage,
+      pageSize,
+      movies: allMovies,
+      sortColumn,
+      searchQuery
+    } = this.state;
 
     if (allMovies.length === 0) return <p>No movies</p>;
 
@@ -113,6 +129,7 @@ class Movies extends Component {
               New Movie
             </Link>
             <p>Showing {totalCount} movies.</p>
+            <SearchBox value={searchQuery} onChange={this.handleSearch} />
             <MoviesTable
               movies={movies}
               sortColumn={sortColumn}

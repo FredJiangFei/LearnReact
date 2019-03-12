@@ -1,5 +1,4 @@
 import axios from 'axios';
-import config from '../config.json';
 
 axios.interceptors.response.use(null, error => {
   const expectedError =
@@ -15,8 +14,8 @@ axios.interceptors.response.use(null, error => {
 });
 
 export default {
-  get: url => axios.get(`${config.apiEndpoint}/${url}`),
-  post: url => axios.post(`${config.apiEndpoint}/${url}`),
-  put: url => axios.put(`${config.apiEndpoint}/${url}`),
-  delete: url => axios.delete(`${config.apiEndpoint}/${url}`)
+  get: axios.get,
+  post: axios.post,
+  put: axios.put,
+  delete: axios.delete
 };
