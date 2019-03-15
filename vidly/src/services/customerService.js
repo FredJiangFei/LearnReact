@@ -13,6 +13,6 @@ export function add(name) {
   });
 }
 
-export function remove(name) {
-  return http.delete(`${apiEndpoint}/${name}`);
+export function remove(id) {
+  return http.delete(`${apiEndpoint}/${id}`);
 }

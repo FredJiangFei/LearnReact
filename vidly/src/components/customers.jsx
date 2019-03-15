@@ -12,7 +12,6 @@ class Customers extends Component {
 
   loadCustomers = async () => {
     const { data: customers } = await getAll();
-    console.log(customers);
     this.setState({
       customers
     });
@@ -23,8 +22,8 @@ class Customers extends Component {
     this.loadCustomers();
   };
 
-  removeCustomer = async name => {
-    await remove(name);
+  removeCustomer = async id => {
+    await remove(id);
     this.loadCustomers();
   };
 
@@ -39,9 +38,9 @@ class Customers extends Component {
 
         <ul>
           {this.state.customers.map(c => (
-            <li key={c}>
-              {c}
-              <button onClick={() => this.removeCustomer(c)}>Remove</button>
+            <li key={c._id}>
+              {c.name}
+              <button onClick={() => this.removeCustomer(c._id)}>Remove</button>
             </li>
           ))}
         </ul>
