@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
-import { getAll, add, remove } from '../services/customerService';
+import {
+  getAll,
+  add,
+  remove,
+  register,
+  login
+} from '../services/customerService';
 
 class Customers extends Component {
   state = {
@@ -27,6 +33,19 @@ class Customers extends Component {
     this.loadCustomers();
   };
 
+  register = async () => {
+    await register();
+  };
+
+  login = async () => {
+    const { data: token } = await login();
+    localStorage.setItem('token', token);
+  };
+
+  logout = async () => {
+    localStorage.removeItem('token');
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -35,6 +54,9 @@ class Customers extends Component {
         <button onClick={() => this.addCustomer(this.textInput.value)}>
           Add
         </button>
+        <button onClick={() => this.register()}>Register</button>
+        <button onClick={() => this.login()}>Login</button>
+        <button onClick={() => this.logout()}>Logout</button>
 
         <ul>
           {this.state.customers.map(c => (
