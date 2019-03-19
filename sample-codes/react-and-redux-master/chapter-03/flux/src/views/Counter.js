@@ -8,7 +8,6 @@ const buttonStyle = {
 };
 
 class Counter extends Component {
-
   constructor(props) {
     super(props);
 
@@ -18,12 +17,14 @@ class Counter extends Component {
 
     this.state = {
       count: CounterStore.getCounterValues()[props.caption]
-    }
+    };
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return (nextProps.caption !== this.props.caption) ||
-           (nextState.count !== this.state.count);
+    return (
+      nextProps.caption !== this.props.caption ||
+      nextState.count !== this.state.count
+    );
   }
 
   componentDidMount() {
@@ -36,7 +37,7 @@ class Counter extends Component {
 
   onChange() {
     const newCount = CounterStore.getCounterValues()[this.props.caption];
-    this.setState({count: newCount});
+    this.setState({ count: newCount });
   }
 
   onClickIncrementButton() {
@@ -48,12 +49,18 @@ class Counter extends Component {
   }
 
   render() {
-    const {caption} = this.props;
+    const { caption } = this.props;
     return (
       <div>
-        <button style={buttonStyle} onClick={this.onClickIncrementButton}>+</button>
-        <button style={buttonStyle} onClick={this.onClickDecrementButton}>-</button>
-        <span>{caption} count: {this.state.count}</span>
+        <button style={buttonStyle} onClick={this.onClickIncrementButton}>
+          +
+        </button>
+        <button style={buttonStyle} onClick={this.onClickDecrementButton}>
+          -
+        </button>
+        <span>
+          {caption} count: {this.state.count}
+        </span>
       </div>
     );
   }
@@ -64,4 +71,3 @@ Counter.propTypes = {
 };
 
 export default Counter;
-
