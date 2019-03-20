@@ -1,20 +1,10 @@
-import React, { Component, PropTypes } from 'react';
-
+import React, { Component } from 'react';
 import * as Actions from '../Actions.js';
 import CounterStore from '../stores/CounterStore.js';
-
-const buttonStyle = {
-  margin: '10px'
-};
 
 class Counter extends Component {
   constructor(props) {
     super(props);
-
-    this.onChange = this.onChange.bind(this);
-    this.onClickIncrementButton = this.onClickIncrementButton.bind(this);
-    this.onClickDecrementButton = this.onClickDecrementButton.bind(this);
-
     this.state = {
       count: CounterStore.getCounterValues()[props.caption]
     };
@@ -35,29 +25,25 @@ class Counter extends Component {
     CounterStore.removeChangeListener(this.onChange);
   }
 
-  onChange() {
+  onChange = () => {
     const newCount = CounterStore.getCounterValues()[this.props.caption];
     this.setState({ count: newCount });
-  }
+  };
 
-  onClickIncrementButton() {
+  increment = () => {
     Actions.increment(this.props.caption);
-  }
+  };
 
-  onClickDecrementButton() {
+  decrement = () => {
     Actions.decrement(this.props.caption);
-  }
+  };
 
   render() {
     const { caption } = this.props;
     return (
       <div>
-        <button style={buttonStyle} onClick={this.onClickIncrementButton}>
-          +
-        </button>
-        <button style={buttonStyle} onClick={this.onClickDecrementButton}>
-          -
-        </button>
+        <button onClick={this.increment}>+</button>
+        <button onClick={this.decrement}>-</button>
         <span>
           {caption} count: {this.state.count}
         </span>
@@ -65,9 +51,5 @@ class Counter extends Component {
     );
   }
 }
-
-Counter.propTypes = {
-  caption: PropTypes.string.isRequired
-};
 
 export default Counter;

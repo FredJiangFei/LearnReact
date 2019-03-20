@@ -13,7 +13,7 @@ class ControlPanel extends Component {
         <Counter caption="First" />
         <Counter caption="Second" />
         <Counter caption="Third" />
-        <hr/>
+        <hr />
         <Summary />
       </div>
     );
@@ -21,4 +21,3 @@ class ControlPanel extends Component {
 }
 
 export default ControlPanel;
-

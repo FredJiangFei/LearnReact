@@ -8,7 +8,6 @@ import Dashboard from './components/admin/dashboard';
 import ProductDetails from './components/productDetails';
 import NotFound from './components/notFound';
 import './App.css';
-import ControlPanel from './components/controlPanel';
 
 class App extends Component {
   render() {
@@ -22,7 +21,6 @@ class App extends Component {
               path="/products"
               render={props => <Products sortBy="newest" {...props} />}
             />
-            <Route path="/counter" component={ControlPanel} />
             <Route path="/posts/:year?/:month?" component={Posts} />
             <Route path="/admin" component={Dashboard} />
             <Redirect from="/messages" to="/posts" />

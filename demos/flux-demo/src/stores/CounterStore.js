@@ -1,5 +1,5 @@
-import AppDispatcher from '../AppDispatcher';
-import * as ActionTypes from '../ActionTypes';
+import AppDispatcher from '../AppDispatcher.js';
+import * as ActionTypes from '../ActionTypes.js';
 import { EventEmitter } from 'events';
 
 const CHANGE_EVENT = 'changed';
