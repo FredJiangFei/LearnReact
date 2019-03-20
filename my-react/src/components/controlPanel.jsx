@@ -1,20 +1,27 @@
 import React, { Component } from 'react';
 import Counter from './counter';
+import SummaryStore from '../flux/stores/SummaryStore';
 
 class ControlPanel extends Component {
   constructor(props) {
     super(props);
 
-    this.initValues = [0, 10, 20];
     this.state = {
-      sum: this.initValues.reduce((a, b) => a + b, 0)
+      sum: SummaryStore.getSummary()
     };
   }
 
-  onCounterUpdate = (newValue, previousValue) => {
-    const valueChange = newValue - previousValue;
+  componentDidMount() {
+    SummaryStore.addChangeListener(this.onUpdate);
+  }
+
+  componentWillUnmount() {
+    SummaryStore.removeChangeListener(this.onUpdate);
+  }
+
+  onUpdate = () => {
     this.setState({
-      sum: this.state.sum + valueChange
+      sum: SummaryStore.getSummary()
     });
   };
 
@@ -22,17 +29,9 @@ class ControlPanel extends Component {
     console.log('enter ControlPanel render');
     return (
       <React.Fragment>
-        <Counter onUpdate={this.onCounterUpdate} caption="First" />
-        <Counter
-          onUpdate={this.onCounterUpdate}
-          caption="Second"
-          initValue={10}
-        />
-        <Counter
-          onUpdate={this.onCounterUpdate}
-          caption="Third"
-          initValue={20}
-        />
+        <Counter caption="First" />
+        <Counter caption="Second" />
+        <Counter caption="Third" />
         <button onClick={() => this.forceUpdate()}>
           Click me to re-render!
         </button>
