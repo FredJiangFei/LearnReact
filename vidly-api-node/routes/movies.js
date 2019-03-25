@@ -8,9 +8,9 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-  const movies = await Movie.find()
+  const movies = await Movie.find({ numberInStock: { $gt: 5 } })
     .select('-__v')
-    .sort('name');
+    .sort({ title: 1 });
   res.send(movies);
 });
 
