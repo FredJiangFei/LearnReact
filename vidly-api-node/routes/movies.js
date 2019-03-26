@@ -73,16 +73,9 @@ router.put('/:id/comments', [auth], async (req, res) => {
   if (!movie)
     return res.status(404).send('The movie with the given ID was not found.');
 
-  const comments = [...movie.comments, req.body.comment];
-  await Movie.findByIdAndUpdate(
-    req.params.id,
-    {
-      comments: comments
-    },
-    { new: true }
-  );
-
-  res.send(comments);
+  movie.comments.push({ description: req.body.comment, created: moment() });
+  await movie.save();
+  res.send(movie.comments);
 });
 
 router.get('/:id/comments', [auth], async (req, res) => {

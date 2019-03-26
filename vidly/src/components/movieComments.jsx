@@ -48,8 +48,8 @@ class MovieComponent extends Form {
       <div>
         <h1>Movie Comments</h1>
         <ul>
-          {this.state.comments.map((c, idx) => (
-            <li key={idx}>{c}</li>
+          {this.state.comments.map(c => (
+            <li key={c._id}>{c.description}</li>
           ))}
         </ul>
         <form onSubmit={this.handleSubmit}>

@@ -2,6 +2,14 @@ const Joi = require('joi');
 const mongoose = require('mongoose');
 const { genreSchema } = require('./genre');
 
+var commentSchema = new mongoose.Schema({
+  description: {
+    type: String
+  },
+  created: {
+    type: Date
+  }
+});
 const Movie = mongoose.model(
   'Movies',
   new mongoose.Schema({
@@ -28,9 +36,10 @@ const Movie = mongoose.model(
       min: 0,
       max: 255
     },
-    comments: {
-      type: [String]
-    }
+    comments: [commentSchema]
+    // comments: {
+    //   type: [String]
+    // }
   })
 );
 
