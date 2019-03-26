@@ -21,6 +21,16 @@ export function saveMovie(movie) {
   return http.post(url, movie);
 }
 
+export function saveComment(movie) {
+  const body = { ...movie };
+  delete body._id;
+  return http.put(`${url}/${movie._id}/comments`, body);
+}
+
+export function getComments(id) {
+  return http.get(`${url}/${id}/comments`);
+}
+
 export function deleteMovie(movieId) {
   return http.delete(`${url}/${movieId}`);
 }

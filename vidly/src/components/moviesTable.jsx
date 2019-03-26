@@ -22,12 +22,20 @@ class MoviesTable extends Component {
     {
       key: 'delete',
       content: movie => (
-        <button
-          onClick={() => this.props.onDelete(movie)}
-          className="btn btn-danger btn-sm"
-        >
-          Delete
-        </button>
+        <React.Fragment>
+          <button
+            onClick={() => this.props.onDelete(movie)}
+            className="btn btn-danger btn-sm"
+          >
+            Delete
+          </button>
+          <Link
+            className="btn btn-primary btn-sm ml-2"
+            to={`/movies/${movie._id}/comments`}
+          >
+            Comments
+          </Link>
+        </React.Fragment>
       )
     }
   ];

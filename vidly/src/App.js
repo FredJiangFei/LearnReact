@@ -10,6 +10,7 @@ import MovieForm from './components/movieForm';
 import LoginForm from './components/loginForm';
 import RegisterForm from './components/registerForm';
 import ProtectedRoute from './commons/protectedRoute';
+import MovieComponent from './components/movieComments';
 
 class App extends Component {
   render() {
@@ -20,6 +21,10 @@ class App extends Component {
           <Switch>
             <Route path="/login" component={LoginForm} />
             <Route path="/register" component={RegisterForm} />
+            <ProtectedRoute
+              path="/movies/:id/comments"
+              component={MovieComponent}
+            />
             <ProtectedRoute path="/movies/:id" component={MovieForm} />
             <ProtectedRoute path="/movies" component={Movies} />
             <Route path="/customers" component={Customers} />
